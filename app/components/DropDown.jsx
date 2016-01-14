@@ -1,38 +1,30 @@
-var Button = require('./Button.jsx');
-var ListItem = require('./List-item.jsx')
+var ListItem = require('./List-item.jsx');
 var React = require('react');
 
 
 
 module.exports = React.createClass({
-  handleClick: function() {
-    this.setState({open: !this.state.open});
+  handleClick: function(event) {
+    this.setState({value: event.target.value});
+    this.props.onChange(event);
   },
   getInitialState: function() {
-    return {open: false};
-  },
-  handleItemClick: function(item) {
-    this.setState({
-      open: false,
-      itemTitle: item
-    });
+    return {value: ''};
   },
   render: function (){
     var list = this.props.items.map(function(item){
-      return <ListItem item={item}
-      whenItemClicked={this.handleItemClick}
-      className = {this.state.itemTitle === item ? "active" : "" }/>
+      return <ListItem item={item} />
     }.bind(this));
 
     return <div className='dropdown'>
-      <Button whenClicked={this.handleClick}
-        className='btn-default'
-        title={this.state.itemTitle || this.props.title}
-        subTitleClassName='caret' />
-      <ul className={'dropdown-menu ' + (this.state.open ? 'show' : '') }>
-        {list}
-      </ul>
-    </div>
+      <select onChange={this.handleClick} value={this.state.value}>
+      {list}
+      </select>
+      </div>
+
+
+
+
   }
 
 })
