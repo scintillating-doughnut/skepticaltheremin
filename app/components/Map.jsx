@@ -19,6 +19,7 @@ var Map = React.createClass({
     }
   },
 
+
   handleLocationChange(e) {
     this.setState({location: e.target.value});
   },
@@ -151,44 +152,59 @@ var Map = React.createClass({
 
     // map.addMarkers(this.props.favorites); //no longer used
   },
+  updateMapFilter(cat) {
+    var map = this.state.map;
+    var markers = map.markers;
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    map.markers = [];
+    this.setState({category: cat},function(){
+      this.refreshMap(map);
+    }.bind(this));
+
+  },
+
+
   refreshMap(map){
     var self = this;
-
+    var filter = this.props.filter;
     helpers.getAllBreadCrumbs(this.props.user, function(data){
       if(!data){
         return;
       }
       self.setState({breadcrumbs: data});
       self.state.breadcrumbs.forEach(function(favorite, index){
-        map.addMarker({
-          lat: favorite.lat,
-          lng: favorite.lng,
-          title: 'New marker',
-          id: index,
-          timestamp: favorite.timestamp,
-          icon: {
-            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-            strokeColor: self.colorGenerator(favorite.category),
-            scale: 5
-          },
-          click: function(e) {
-            self.setState({saved: true, old: true},function(){
-              e.setIcon({
-                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                strokeColor:e.icon.strokeColor,
-                scale: 10
+        if(filter === 'All' || filter === favorite.category){
+          map.addMarker({
+            lat: favorite.lat,
+            lng: favorite.lng,
+            title: 'New marker',
+            id: index,
+            timestamp: favorite.timestamp,
+            icon: {
+              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+              strokeColor: self.colorGenerator(favorite.category),
+              scale: 5
+            },
+            click: function(e) {
+              self.setState({saved: true, old: true},function(){
+                e.setIcon({
+                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                  strokeColor:e.icon.strokeColor,
+                  scale: 10
+                });
+                // self.setState({currentMarker: this});
+                // self.updateCurrentLocation();
+                self.matchBreadCrumb(e.timestamp);
+                self.setState({currentMarker: e},function(){
+                  self.updateCurrentLocation();
+                });
               });
-              // self.setState({currentMarker: this});
-              // self.updateCurrentLocation();
-              self.matchBreadCrumb(e.timestamp);
-              self.setState({currentMarker: e},function(){
-                self.updateCurrentLocation();
-              });
-            });
-            // self.state.currentMarker.setMap(null);
-          }
-        });
-
+              // self.state.currentMarker.setMap(null);
+            }
+          });
+        }
       });
     });
   },
