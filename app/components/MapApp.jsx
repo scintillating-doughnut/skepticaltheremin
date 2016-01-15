@@ -118,6 +118,7 @@ var MapApp = React.createClass({
 
   handleCategoryChange(categoryName) {
     this.setState({filter: categoryName});
+    this.refs.map.updateMapFilter(categoryName);
   },
 
   render(){
@@ -131,20 +132,23 @@ var MapApp = React.createClass({
           <label htmlFor="category">Filter:</label>
           <DropDown id='category' title='All' items={['All', 'Food', 'Nature', 'Pets', 'Sports', 'Music', 'General']} whenSelected={this.handleCategoryChange} />
 
-          <Map lat={this.state.mapCoordinates.lat}
+          <Map ref='map'
+            lat={this.state.mapCoordinates.lat}
             lng={this.state.mapCoordinates.lng}
             favorites={this.state.favorites}
             onFavoriteToggle={this.toggleFavorite}
             onAddToFavBcs={this.addToFavBreadCrumbs}
             searchAddress={this.searchForAddress}
-            address={this.state.currentAddress} 
-            center={this.state.center} 
+            address={this.state.currentAddress}
+            center={this.state.center}
             loginUser={this.loginUser}
-            user={this.state.user} />
+            user={this.state.user}
+            filter={this.state.filter}
+            changedCategory={this.updateMapFilter} />
 
           <LocationList locations={this.state.favorites}
-            activeLocationAddress={this.state.currentAddress} 
-            onClick={this.searchForAddress} setEdit={this.setEdit} filter={this.state.filter}/>          
+            activeLocationAddress={this.state.currentAddress}
+            onClick={this.searchForAddress} setEdit={this.setEdit} filter={this.state.filter}/>
         </div>
 
       );
