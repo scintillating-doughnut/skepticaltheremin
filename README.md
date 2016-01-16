@@ -2,7 +2,7 @@
 
 Your world. Your map. Your breadcrumbs.
 
-![image](http://imgur.com/7YXOtu7)
+![image](http://i.imgur.com/7YXOtu7.png)
 
 ## Table of Contents
 
