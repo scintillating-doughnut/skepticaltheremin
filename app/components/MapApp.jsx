@@ -6,7 +6,7 @@ var CurrentLocation = require('./CurrentLocation.jsx');
 var LocationList = require('./LocationList.jsx');
 var SearchUser = require('./SearchUser.jsx');
 var helpers = require('../utils/helpers');
-var Signup = require('./Signup.jsx');
+var Login = require('./Login.jsx');
 var EditItem = require('./EditItem.jsx');
 var DropDown = require('./DropDown.jsx');
 
@@ -21,6 +21,7 @@ var MapApp = React.createClass({
 
     return {
       user: '',
+      name: '',
       loggedin: false,
       favorites: favorites,
       filter: 'All',
@@ -37,15 +38,22 @@ var MapApp = React.createClass({
     };
   },
 
-  loginUser(username){
-    console.log("logged in:", username);
-    this.setState({user: username, loggedin: true}); 
-    helpers.getAllBreadCrumbs(username, function(data){
-      if(data){
-        this.setState({favorites: data});
-      }
-    }.bind(this));
+  loginUser(username, name){
 
+    if (username !== null) {
+      console.log("logged in:", username);
+      this.setState({user: username, name: name, loggedin: true}); 
+      helpers.getAllBreadCrumbs(username, function(data){
+        if(data){
+          this.setState({favorites: data});
+        }
+      }.bind(this));
+    }
+  },
+
+  logout() {
+    console.log("Logout clicked")
+    this.setState({user: '', name: '', loggedin: false});
   },
 
   componentDidMount(){
@@ -153,6 +161,14 @@ var MapApp = React.createClass({
       return (
 
         <div>
+        <nav className="navbar navbar-fixed-top navbar-inverse" role="navigation" >
+          <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
+            <div className="container">
+              <div className="navbar-brand"> Hello, {this.state.name}</div>
+              <div className="navbar-header"><a href="#" className="navbar-brand" onClick={this.logout}> Logout </a></div>
+            </div>
+          </div>
+        </nav>
           <EditItem title="EDIT" pinObject={this.state.editingPin} updatePin={this.updatePin} deletePin={this.deletePin} />
           <h1 className="col-xs-12 col-md-6 col-md-offset-3">My Breadcrumbs</h1>
           <Search onSearch={this.searchForAddress} />
@@ -180,7 +196,7 @@ var MapApp = React.createClass({
 
       );
     } else {
-      return <Signup loginUser={this.loginUser}/>
+      return <Login loginUser={this.loginUser}/>
     }
   }
 
