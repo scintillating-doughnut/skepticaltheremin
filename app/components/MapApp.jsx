@@ -39,14 +39,16 @@ var MapApp = React.createClass({
   },
 
   loginUser(username, name){
+    console.log('logging in ');
 
     if (username !== null) {
-      console.log("logged in:", username);
       this.setState({user: username, name: name, loggedin: true});
       helpers.getAllBreadCrumbs(username, function(data){
         if(data){
           this.setState({favorites: data});
         }
+        //this forces a map refresh once the favorites are loaded because of async.
+        this.refs.map.componentDidMount();
       }.bind(this));
     }
   },
@@ -63,6 +65,7 @@ var MapApp = React.createClass({
     var favorites = this.state.favorites;
     var breadcrumb = {
       id: id,
+      key: id,
       lat: lat,
       lng: lng,
       timestamp: timestamp,

@@ -80,9 +80,10 @@ var Map = React.createClass({
   },
 
   componentDidMount(){
+    console.log('didmount');
 
     // Only componentDidMount is called when the component is first added to
-    // the page. This is why we are calling the following method manually. 
+    // the page. This is why we are calling the following method manually.
     // This makes sure that our map initialization code is run the first time.
 
     // this.componentDidUpdate();
@@ -162,51 +163,55 @@ var Map = React.createClass({
     this.setState({category: cat},function(){
       this.refreshMap(map);
     }.bind(this));
-
   },
 
 
   refreshMap(map){
+    console.log('refreshing as coke');
     var self = this;
     var filter = this.props.filter;
-    helpers.getAllBreadCrumbs(this.props.user, function(data){
-      if(!data){
-        return;
-      }
-      self.setState({breadcrumbs: data});
-      self.state.breadcrumbs.forEach(function(favorite, index){
-        if(filter === 'All' || filter === favorite.category){
-          map.addMarker({
-            lat: favorite.lat,
-            lng: favorite.lng,
-            title: 'New marker',
-            id: index,
-            timestamp: favorite.timestamp,
-            icon: {
-              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-              strokeColor: self.colorGenerator(favorite.category),
-              scale: 5
-            },
-            click: function(e) {
-              self.setState({saved: true, old: true},function(){
-                e.setIcon({
-                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                  strokeColor:e.icon.strokeColor,
-                  scale: 10
+    console.log('filter', filter);
+    var fav = this.props.favorites;
+    console.log('fav', fav, this.props.user);
+    // helpers.getAllBreadCrumbs(this.props.user, function(data){
+    //   if(!data){
+    //     return;
+    //   }
+      self.setState({breadcrumbs: fav},function(){
+        self.state.breadcrumbs.forEach(function(favorite, index){
+          if(filter === 'All' || filter === favorite.category){
+            map.addMarker({
+              key: index,
+              lat: favorite.lat,
+              lng: favorite.lng,
+              title: 'New marker',
+              id: index,
+              timestamp: favorite.timestamp,
+              icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                strokeColor: self.colorGenerator(favorite.category),
+                scale: 5
+              },
+              click: function(e) {
+                self.setState({saved: true, old: true},function(){
+                  e.setIcon({
+                    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                    strokeColor:e.icon.strokeColor,
+                    scale: 10
+                  });
+                  // self.setState({currentMarker: this});
+                  // self.updateCurrentLocation();
+                  self.matchBreadCrumb(e.timestamp);
+                  self.setState({currentMarker: e},function(){
+                    self.updateCurrentLocation();
+                  });
                 });
-                // self.setState({currentMarker: this});
-                // self.updateCurrentLocation();
-                self.matchBreadCrumb(e.timestamp);
-                self.setState({currentMarker: e},function(){
-                  self.updateCurrentLocation();
-                });
-              });
-              // self.state.currentMarker.setMap(null);
-            }
-          });
-        }
+                // self.state.currentMarker.setMap(null);
+              }
+            });
+          }
+        });
       });
-    });
   },
 
 
@@ -302,7 +307,7 @@ var Map = React.createClass({
     // });
 
     // Adding a marker to the location we are showing
-    
+
     // map.addMarker({
     //   lat: this.props.lat,
     //   lng: this.props.lng
