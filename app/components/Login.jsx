@@ -112,7 +112,11 @@ var Login = React.createClass({
   render: function(){
     return(
       <div>
-         <h1>Welcome to Breadcrumbs</h1>
+      <video autoPlay="true" loop="false" poster="assets/SanFrancisco.jpg" id="bgvid">
+          <source src="assets/SanFrancisco.webm" type="video/webm" />
+          <source src="assets/SanFrancisco.mp4" type="video/mp4" />
+      </video>
+         <h1 className="logintitle">Your world. Your map. Your breadcrumbs.</h1>
           <div>
             <a href="#" onClick={this.handleClick}>
             <img src="assets/facebook.png"/></a>

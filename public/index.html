@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>React!</title>
+    <title>Breadcrumbs</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -17,7 +17,46 @@
     <!-- Including the Google Maps API and the GMaps library -->
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+
+      // Hide Header on on scroll down
+    var didScroll;
+    var lastScrollTop = 0;
+    var delta = 5;
+    var navbarHeight = 50;
+
+    $(window).scroll(function(event){
+      didScroll = true;
+    });
+
+    setInterval(function() {
+      if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+      }
+    }, 250);
+
+    function hasScrolled() {
+      var st = $(this).scrollTop();
+
+      // Make sure they scroll more than delta
+      if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+      if (st > lastScrollTop && st > navbarHeight) {
+          // Scroll Down
+        $('.navbar').fadeOut();
+      } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('.navbar').fadeIn();
+        }
+      }
+
+      lastScrollTop = st;
+    }
+    </script>
 
     <!-- Our compiled JavaScript source file -->
     <script src="bundle.js" async></script>

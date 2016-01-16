@@ -42,7 +42,7 @@ var MapApp = React.createClass({
 
     if (username !== null) {
       console.log("logged in:", username);
-      this.setState({user: username, name: name, loggedin: true}); 
+      this.setState({user: username, name: name, loggedin: true});
       helpers.getAllBreadCrumbs(username, function(data){
         if(data){
           this.setState({favorites: data});
@@ -172,9 +172,10 @@ var MapApp = React.createClass({
           <EditItem title="EDIT" pinObject={this.state.editingPin} updatePin={this.updatePin} deletePin={this.deletePin} />
           <h1 className="col-xs-12 col-md-6 col-md-offset-3">My Breadcrumbs</h1>
           <Search onSearch={this.searchForAddress} />
+          <div className="mapFilter">
           <label htmlFor="category">Filter:</label>
           <DropDown id='category' title='All' items={['All', 'Food', 'Nature', 'Pets', 'Sports', 'Music', 'General']} whenSelected={this.handleCategoryChange} />
-
+          </div>
           <Map ref='map'
             lat={this.state.mapCoordinates.lat}
             lng={this.state.mapCoordinates.lng}
@@ -192,6 +193,7 @@ var MapApp = React.createClass({
           <LocationList locations={this.state.favorites}
             activeLocationAddress={this.state.currentAddress}
             onClick={this.searchForAddress} setEdit={this.setEdit} filter={this.state.filter}/>
+
         </div>
 
       );
