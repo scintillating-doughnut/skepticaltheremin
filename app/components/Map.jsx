@@ -82,7 +82,7 @@ var Map = React.createClass({
   componentDidMount(){
 
     // Only componentDidMount is called when the component is first added to
-    // the page. This is why we are calling the following method manually. 
+    // the page. This is why we are calling the following method manually.
     // This makes sure that our map initialization code is run the first time.
 
     // this.componentDidUpdate();
@@ -302,7 +302,7 @@ var Map = React.createClass({
     // });
 
     // Adding a marker to the location we are showing
-    
+
     // map.addMarker({
     //   lat: this.props.lat,
     //   lng: this.props.lng
@@ -338,7 +338,7 @@ var Map = React.createClass({
         <label htmlFor="comment">Comment:</label>
         <textarea value={this.state.comment} onChange={this.handleCommentChange} className="form-control" rows="3" id="comment"></textarea>
         <div>
-          <input type="submit" className="btn btn-primary" value="Save Breadcrumb" />
+          <input type="submit" className="btn btn-primary btn-submit" value="Save Breadcrumb" />
         </div>
       </form>
       </div>

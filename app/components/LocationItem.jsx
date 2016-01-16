@@ -25,7 +25,8 @@ var LocationItem = React.createClass({
 
       <a className={cn} onClick={this.handleClick}>
         {this.props.address}
-        <span className="createdAt">{ moment(this.props.timestamp).fromNow() }</span>
+        <br/><b><span className="listNote">{this.props.details.note}</span></b>
+        <span className="createdAt">{ moment(this.props.timestamp).fromNow() } | {this.props.category}</span>
         <span onClick={this.editClick} className='label label-default label-pill pull-xm-right' data-toggle='modal' data-target='#myModal'>{this.props.title}</span>
       </a>
 
