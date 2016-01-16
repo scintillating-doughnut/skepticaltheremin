@@ -127,8 +127,8 @@ var Map = React.createClass({
             //   content: '<p style="height:200px; width: 800px;">HTML Content </p>'
             // },
             click: function(e) {
-              if(this.state.currentMarker){
-              self.setState({previousMarker: this.state.currentMarker});
+              if(self.state.currentMarker){
+              self.setState({previousMarker: self.state.currentMarker});
               }
               self.setState({currentMarker: this});
               self.updateCurrentLocation();
