@@ -2,21 +2,24 @@
 
 Your world. Your map. Your breadcrumbs.
 
-## Team
-
-  - __Product Owner__: Lex
-  - __Scrum Master__: Ian
-  - __Development Team Members__: Mark, Nikola
+![image](http://imgur.com/7YXOtu7)
 
 ## Table of Contents
 
+1. [Team](#team)
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
+    1. [API Endpoints](#api-end-points)
+1. [Deployment](#deployment)
 1. [Contributing](#contributing)
+
+## Team
+
+  - __Product Owner__: [Kris Albert Lee](https://github.com/krisalbert)
+  - __Scrum Master__: [Dakota Peel](https://github.com/Dakota-Peel)
+  - __Development Team Members__: [Justin Shaw](https://github.com/jshaw22), [Kevin Weng](https://github.com/kweng2)
 
 ## Usage
 
@@ -62,11 +65,10 @@ npm install
 |/api/maps/:username|DELETE|JSON(pin)|_id: str|
 |/api/maps/:username|PUT|JSON(pin)|_id: str, newPin: pinObj|
 
-### Roadmap
+### Deployment
 
-Login button does not currently do anything. Sign up workflow can be used with a new or returning username/password combination.
-
+Make sure to exclude public/bundle.js in .gitignore while pushing to herokuapp.
 
 ## Contributing
 
-Contact any of the current Breadcrumbs team members (https://github.com/skepticaltheremin/skepticaltheremin) to learn how to get involved in the project!
+Contact any of the current Breadcrumbs team members (https://github.com/scintillating-doughnut/skepticaltheremin) to learn how to get involved in the project!
