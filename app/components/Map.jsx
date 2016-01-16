@@ -344,7 +344,7 @@ var Map = React.createClass({
         <label htmlFor="comment">Comment:</label>
         <textarea value={this.state.comment} onChange={this.handleCommentChange} className="form-control" rows="3" id="comment"></textarea>
         <div>
-          <input type="submit" className="btn btn-primary" value="Save Breadcrumb" />
+          <input type="submit" className="btn btn-primary btn-submit" value="Save Breadcrumb" />
         </div>
       </form>
       </div>
