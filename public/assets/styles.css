@@ -8,8 +8,39 @@ h1 {
   margin-bottom: 20px;
 }
 
+
 #geocoding_form {
   margin: 40px auto 60px;
+}
+
+h1.logintitle {
+  /*color: white;*/
+}
+
+.navbar-inverse {
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+.navbar-inverse .navbar-brand {
+  color: white;
+}
+
+video#bgvid {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background: url(SanFrancisco.jpg) no-repeat;
+  background-size: cover;
 }
 
 #address {
@@ -45,7 +76,7 @@ float:left;
   line-height: 1.4;
 }
 
-.current-location .glyphicon-star, 
+.current-location .glyphicon-star,
 .current-location .glyphicon-star-empty {
   display: inline-block;
   margin-left: 10px;
@@ -100,6 +131,20 @@ a.list-group-item {
   cursor: pointer;
 }
 
+.mapFilter {
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+@media (min-width:992px) {
+
+  .mapFilter {
+    margin-left: 25%;
+    margin-bottom: 10px;
+  }
+
+}
+
 a.list-group-item:hover {
   background-color: #F7FBFF;
 }
@@ -123,6 +168,6 @@ textarea {
   height:20%;
 }
 
-body { 
-    padding-top: 65px; 
+body {
+    padding-top: 65px;
 }
