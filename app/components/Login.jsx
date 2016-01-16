@@ -106,7 +106,7 @@ var Login = React.createClass({
   },
 
   handleClick: function() {
-    FB.login(this.checkLoginState());
+    FB.login(this.checkLoginState);
   },
 
   render: function(){
