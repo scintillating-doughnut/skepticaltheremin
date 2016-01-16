@@ -39,14 +39,16 @@ var MapApp = React.createClass({
   },
 
   loginUser(username, name){
+    console.log('logging in');
 
     if (username !== null) {
-      console.log("logged in:", username);
       this.setState({user: username, name: name, loggedin: true});
       helpers.getAllBreadCrumbs(username, function(data){
         if(data){
           this.setState({favorites: data});
         }
+        //this forces a map refresh once the favorites are loaded because of async.
+        this.refs.map.componentDidMount();
       }.bind(this));
     }
   },
@@ -63,6 +65,7 @@ var MapApp = React.createClass({
     var favorites = this.state.favorites;
     var breadcrumb = {
       id: id,
+      key: id,
       lat: lat,
       lng: lng,
       timestamp: timestamp,
@@ -130,8 +133,10 @@ var MapApp = React.createClass({
         this.setState({
           // find the appropriate pin to update. PITA due to pure function restriction
           favorites: this.state.favorites.slice(0,i).concat(data).concat(this.state.favorites.slice(i+1))
-        });
-      }
+        },function(){
+          this.refs.map.updateMapFilter(this.state.filter);
+        }.bind(this));
+      };
     }
   },
 
@@ -139,6 +144,8 @@ var MapApp = React.createClass({
     helpers.getAllBreadCrumbs(this.state.user, function(data){
       this.setState({
         favorites: data
+      },function(){
+        this.refs.map.updateMapFilter(this.state.filter);
       });
     }.bind(this));
   },
@@ -152,8 +159,9 @@ var MapApp = React.createClass({
   },
 
   handleCategoryChange(categoryName) {
-    this.setState({filter: categoryName});
-    this.refs.map.updateMapFilter(categoryName);
+    this.setState({filter: categoryName},function(){
+      this.refs.map.updateMapFilter(categoryName);
+    }.bind(this));
   },
 
   render(){

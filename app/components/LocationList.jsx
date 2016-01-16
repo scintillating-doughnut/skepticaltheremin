@@ -23,12 +23,11 @@ var LocationList = React.createClass({
     var locations = this.props.locations.map(function(l){
       var active = self.props.activeLocationAddress == l.address;
 
-
       // Notice that we are passing the onClick callback of this
       // LocationList to each LocationItem.
 
       if(filter === 'All' || filter === l.category) {
-        return <LocationItem address={l.address} timestamp={l.timestamp} edit={self.props.setEdit} pin={l}
+        return <LocationItem key={l.id} address={l.address} timestamp={l.timestamp} edit={self.props.setEdit} pin={l}
             active={active} category={l.category} details ={l.details} title='EDIT' onClick={self.props.onClick} />
       }
     });
