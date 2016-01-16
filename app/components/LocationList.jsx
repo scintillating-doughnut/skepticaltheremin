@@ -27,7 +27,7 @@ var LocationList = React.createClass({
       // LocationList to each LocationItem.
 
       if(filter === 'All' || filter === l.category) {
-        return <LocationItem address={l.address} timestamp={l.timestamp} edit={self.props.setEdit} pin={l}
+        return <LocationItem key={l.id} address={l.address} timestamp={l.timestamp} edit={self.props.setEdit} pin={l}
             active={active} category={l.category} details ={l.details} title='EDIT' onClick={self.props.onClick} />
       }
     });

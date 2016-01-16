@@ -318,6 +318,7 @@ var Map = React.createClass({
 
   },
 
+
   handleSubmit(e) {
     e.preventDefault();
     var id = this.props.favorites.length;
