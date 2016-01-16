@@ -320,7 +320,7 @@ var Map = React.createClass({
         <label htmlFor="location">Location:</label>
         <input type="text" className="form-control" id="location" onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" />
         <label htmlFor="comment">Comment:</label>
-        <textarea value={this.state.comment} onChange={this.handleCommentChange} className="form-control" rows="10" id="comment"></textarea>
+        <textarea value={this.state.comment} onChange={this.handleCommentChange} className="form-control" rows="3" id="comment"></textarea>
         <div>
           <input type="submit" className="btn btn-primary" value="Save Breadcrumb" />
         </div>
