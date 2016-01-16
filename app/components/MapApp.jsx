@@ -21,6 +21,7 @@ var MapApp = React.createClass({
 
     return {
       user: '',
+      name: '',
       loggedin: false,
       favorites: favorites,
       filter: 'All',
@@ -37,11 +38,11 @@ var MapApp = React.createClass({
     };
   },
 
-  loginUser(username){
+  loginUser(username, name){
 
     if (username !== null) {
       console.log("logged in:", username);
-      this.setState({user: username, loggedin: true}); 
+      this.setState({user: username, name: name, loggedin: true}); 
       helpers.getAllBreadCrumbs(username, function(data){
         if(data){
           this.setState({favorites: data});
@@ -195,7 +196,7 @@ var MapApp = React.createClass({
 
       );
     } else {
-      return <Login loginUser/>
+      return <Login loginUser={this.loginUser}/>
     }
   }
 
